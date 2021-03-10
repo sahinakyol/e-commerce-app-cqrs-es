@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.axonframework.commandhandling.RoutingKey;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountCreateCommand {
-    @TargetAggregateIdentifier
+    @RoutingKey
     private String id;
     private String userid;
     private BigDecimal balance;

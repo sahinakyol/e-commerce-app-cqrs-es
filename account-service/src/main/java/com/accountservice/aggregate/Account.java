@@ -1,7 +1,6 @@
 package com.accountservice.aggregate;
 
 import com.accountservice.command.AccountCreateCommand;
-import com.accountservice.command.UserCreateCommand;
 import com.accountservice.event.AccountCreateEvent;
 import com.accountservice.event.DepositMoneyEvent;
 import com.accountservice.event.WithdrawMoneyEvent;
@@ -23,11 +22,11 @@ public class Account {
 
     @CommandHandler
     public void handle(AccountCreateCommand command) {
-            apply(new AccountCreateEvent(
-                    command.getId(),
-                    command.getUserid(),
-                    command.getBalance()
-            ));
+        apply(new AccountCreateEvent(
+                command.getId(),
+                command.getUserid(),
+                command.getBalance()
+        ));
     }
 
 
@@ -56,10 +55,5 @@ public class Account {
         }
 
         this.balance = this.balance.subtract(event.getAmount());
-    }
-
-    @EventSourcingHandler
-    public void handler(UserCreateCommand event) {
-        System.out.println("");
     }
 }

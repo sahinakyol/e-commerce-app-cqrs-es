@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.axonframework.commandhandling.RoutingKey;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
@@ -11,7 +12,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserCommand {
-    @TargetAggregateIdentifier
+    @RoutingKey
     private String id;
     private String name;
 }
