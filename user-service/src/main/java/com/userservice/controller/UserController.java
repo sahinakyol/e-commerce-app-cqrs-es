@@ -3,7 +3,6 @@ package com.userservice.controller;
 
 import com.userservice.dto.DepositDTO;
 import com.userservice.dto.UserDto;
-import com.userservice.dto.WithdrawDTO;
 import com.userservice.model.UserModel;
 import com.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,12 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/deposit")
-    public CompletableFuture<String> deposit(@RequestBody DepositDTO transactionDTO) {
-        return userService.depositMoney(transactionDTO);
-    }
-
-    @PostMapping("/withdrawal")
-    public CompletableFuture<String> withdraw(@RequestBody WithdrawDTO transactionDTO) {
-        return userService.withdrawMoney(transactionDTO);
+    public void deposit(@RequestBody DepositDTO transactionDTO) {
+        userService.depositMoney(transactionDTO);
     }
 }

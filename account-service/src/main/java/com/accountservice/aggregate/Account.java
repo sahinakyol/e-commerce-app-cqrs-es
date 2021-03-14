@@ -1,6 +1,8 @@
 package com.accountservice.aggregate;
 
-import com.accountservice.command.AccountCreateCommand;
+import com.accountservice.command.CreateAccountCommand;
+import com.accountservice.command.DepositMoneyCommand;
+import com.accountservice.command.WithdrawMoneyCommand;
 import com.accountservice.event.AccountCreateEvent;
 import com.accountservice.event.DepositMoneyEvent;
 import com.accountservice.event.WithdrawMoneyEvent;
@@ -15,13 +17,14 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
 public class Account {
+
     @AggregateIdentifier
     private String id;
     private String userid;
     private BigDecimal balance;
 
     @CommandHandler
-    public void handle(AccountCreateCommand command) {
+    public Account(CreateAccountCommand command) {
         apply(new AccountCreateEvent(
                 command.getId(),
                 command.getUserid(),
@@ -29,6 +32,23 @@ public class Account {
         ));
     }
 
+    @CommandHandler
+    public Account(WithdrawMoneyCommand command) {
+        apply(new WithdrawMoneyEvent(
+                command.getId(),
+                command.getUserid(),
+                command.getAmount()
+        ));
+    }
+
+    @CommandHandler
+    public Account(DepositMoneyCommand command) {
+        apply(new DepositMoneyEvent(
+                command.getId(),
+                command.getUserid(),
+                command.getAmount()
+        ));
+    }
 
     @EventSourcingHandler
     protected void createAccount(AccountCreateEvent event) {
@@ -39,21 +59,18 @@ public class Account {
 
     @EventSourcingHandler
     protected void depositMoney(DepositMoneyEvent event) {
-        if (BigDecimal.ZERO.compareTo(event.getAmount()) <= 0) {
+        if (event.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
             throw new IllegalStateException();
         }
-
-        this.balance = this.balance.add(event.getAmount());
+        this.id = event.getId();
+        this.userid = event.getUserid();
+        this.balance = balance.add(event.getAmount());
     }
 
     @EventSourcingHandler
     protected void withdrawMoney(WithdrawMoneyEvent event) {
-        if (this.balance.subtract(event.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalStateException();
-        } else if (event.getAmount().compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalStateException();
-        }
-
-        this.balance = this.balance.subtract(event.getAmount());
+        this.id = event.getId();
+        this.userid = event.getUserid();
+        this.balance = event.getAmount();
     }
 }

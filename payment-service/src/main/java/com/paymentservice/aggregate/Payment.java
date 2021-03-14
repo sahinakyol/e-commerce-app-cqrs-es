@@ -1,16 +1,17 @@
 package com.paymentservice.aggregate;
 
-import com.paymentservice.event.PaymentCreatedEvent;
-import lombok.RequiredArgsConstructor;
+import com.core.event.PaymentCreatedEvent;
+import com.paymentservice.command.PaymentCreateCommand;
+import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.math.BigDecimal;
-import java.util.UUID;
+
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
-@RequiredArgsConstructor
 public class Payment {
     @AggregateIdentifier
     private String id;
@@ -23,9 +24,19 @@ public class Payment {
 
     private String status;
 
+    @CommandHandler
+    public Payment(PaymentCreateCommand command) {
+        apply(new PaymentCreatedEvent(
+                command.getId(),
+                command.getOrderId(),
+                command.getPrice().multiply(new BigDecimal(command.getNumber())),
+                command.getUserid()
+        ));
+    }
+
     @EventSourcingHandler
-    protected void on(PaymentCreatedEvent paymentCreatedEvent) {
-        this.id = UUID.randomUUID().toString();
+    public void on(PaymentCreatedEvent paymentCreatedEvent) {
+        this.id = paymentCreatedEvent.getId();
         this.orderId = paymentCreatedEvent.getOrderId();
         this.userid = paymentCreatedEvent.getUserid();
         this.totalAmount = paymentCreatedEvent.getTotalAmount();

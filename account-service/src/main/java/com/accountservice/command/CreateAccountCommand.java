@@ -1,4 +1,4 @@
-package com.productservice.event;
+package com.accountservice.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,12 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StockUpdatedEvent {
+public class CreateAccountCommand {
     @TargetAggregateIdentifier
     private String id;
-    private Integer stock;
+    private String userid;
+    private BigDecimal balance;
 }

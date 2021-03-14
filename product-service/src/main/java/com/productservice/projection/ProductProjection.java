@@ -1,7 +1,7 @@
 package com.productservice.projection;
 
+import com.core.event.StockUpdatedEvent;
 import com.productservice.event.ProductCreatedEvent;
-import com.productservice.event.StockUpdatedEvent;
 import com.productservice.model.ProductModel;
 import com.productservice.query.FindProductByIdQuery;
 import com.productservice.query.GetProductsQuery;
@@ -32,9 +32,9 @@ public class ProductProjection {
     }
 
     @EventHandler
-    public void on(StockUpdatedEvent stockUpdatedEvent) {
-        ProductModel productSummary = productProjectionRepository.findById(stockUpdatedEvent.getId()).orElse(null);
-        productSummary.setStock(productSummary.getStock() - stockUpdatedEvent.getStock());
+    public void on(StockUpdatedEvent stockUpdatedEvent) throws Exception {
+        ProductModel productSummary = productProjectionRepository.findById(stockUpdatedEvent.getId()).orElseThrow(Exception::new);
+        productSummary.setStock(productSummary.getStock() - stockUpdatedEvent.getNumber());
         productProjectionRepository.save(productSummary);
     }
 

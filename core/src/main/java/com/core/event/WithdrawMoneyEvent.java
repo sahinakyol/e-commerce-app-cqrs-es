@@ -1,4 +1,4 @@
-package com.orderservice.event;
+package com.core.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentCreatedEvent {
-
-    private String orderId;
-
-    private BigDecimal totalAmount;
-
+public class WithdrawMoneyEvent {
     private String userid;
+    private BigDecimal amount;
 }

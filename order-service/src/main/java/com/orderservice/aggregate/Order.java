@@ -1,7 +1,7 @@
 package com.orderservice.aggregate;
 
+import com.core.event.OrderCreatedEvent;
 import com.orderservice.command.CreateOrderCommand;
-import com.orderservice.event.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -28,6 +28,7 @@ public class Order {
                 .price(command.getPrice())
                 .number(command.getNumber())
                 .productId(command.getProductId())
+                .userid(command.getUserid())
                 .build());
     }
 

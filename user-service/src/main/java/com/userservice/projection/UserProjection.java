@@ -1,6 +1,6 @@
 package com.userservice.projection;
 
-import com.userservice.event.UserCreatedEvent;
+import com.core.event.UserCreatedEvent;
 import com.userservice.model.UserModel;
 import com.userservice.query.GetUsersQuery;
 import com.userservice.repository.UserProjectionRepository;

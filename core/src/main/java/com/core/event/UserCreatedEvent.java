@@ -1,4 +1,4 @@
-package com.userservice.event;
+package com.core.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

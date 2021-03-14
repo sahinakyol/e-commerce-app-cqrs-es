@@ -1,7 +1,7 @@
 package com.userservice.aggregate;
 
+import com.core.event.UserCreatedEvent;
 import com.userservice.command.CreateUserCommand;
-import com.userservice.event.UserCreatedEvent;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;

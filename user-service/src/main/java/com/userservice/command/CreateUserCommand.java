@@ -12,7 +12,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateUserCommand {
-    @RoutingKey
+    @TargetAggregateIdentifier
     private String id;
     private String name;
 }

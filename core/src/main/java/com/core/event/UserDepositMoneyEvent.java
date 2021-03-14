@@ -1,4 +1,4 @@
-package com.userservice.event;
+package com.core.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WithdrawMoneyEvent {
+public class UserDepositMoneyEvent {
     private String userid;
     private BigDecimal amount;
 }

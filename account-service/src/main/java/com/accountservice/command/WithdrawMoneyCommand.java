@@ -1,21 +1,20 @@
-package com.orderservice.event;
+package com.accountservice.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-public class OrderCreatedEvent {
+public class WithdrawMoneyCommand {
     @TargetAggregateIdentifier
-    private String orderId;
-    private BigDecimal price;
-    private Integer number;
-    private String productId;
+    private String id;
     private String userid;
+    private BigDecimal amount;
 }

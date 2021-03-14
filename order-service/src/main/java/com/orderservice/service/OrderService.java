@@ -13,6 +13,7 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -24,13 +25,15 @@ public class OrderService {
     private final QueryGateway queryGateway;
     private final ProductEndpoint productEndpoint;
 
-    public void create(OrderDto orderDto) {
+    public void create(OrderDto orderDto) throws Exception {
         ProductDto productDto = productEndpoint.getById(orderDto.getProductid());
+        Optional.ofNullable(productDto).orElseThrow(Exception::new);
         CreateOrderCommand cmd = new CreateOrderCommand(
                 UUID.randomUUID().toString(),
                 productDto.getPrice(),
                 orderDto.getNumber(),
-                orderDto.getProductid()
+                orderDto.getProductid(),
+                orderDto.getUserid()
         );
         commandGateway.send(cmd);
     }

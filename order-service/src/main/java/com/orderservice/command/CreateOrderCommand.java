@@ -19,4 +19,6 @@ public class CreateOrderCommand {
     private BigDecimal price;
     private Integer number;
     private String productId;
+    private String userid;
+
 }

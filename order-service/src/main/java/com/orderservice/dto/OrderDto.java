@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class OrderDto {
     private Integer number;
     private String productid;
+    private String userid;
 }

@@ -1,4 +1,4 @@
-package com.accountservice.event;
+package com.core.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreatedEvent {
+public class StockUpdatedEvent {
     private String id;
-    private String name;
+    private Integer number;
 }

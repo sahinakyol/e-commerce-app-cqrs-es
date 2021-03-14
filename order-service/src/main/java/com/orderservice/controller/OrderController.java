@@ -20,7 +20,7 @@ public class OrderController {
 
 
     @PostMapping
-    public void handle(@RequestBody OrderDto orderDto) {
+    public void handle(@RequestBody OrderDto orderDto) throws Exception {
         orderService.create(orderDto);
     }
 

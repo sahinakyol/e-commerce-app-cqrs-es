@@ -15,5 +15,4 @@ public class WithdrawMoneyEvent {
     private String id;
     private String userid;
     private BigDecimal amount;
-    private String orderid;
 }
