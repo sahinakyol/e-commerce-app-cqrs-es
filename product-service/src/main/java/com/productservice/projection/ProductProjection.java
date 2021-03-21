@@ -32,9 +32,9 @@ public class ProductProjection {
     }
 
     @EventHandler
-    public void on(StockUpdatedEvent stockUpdatedEvent) throws Exception {
-        ProductModel productSummary = productProjectionRepository.findById(stockUpdatedEvent.getId()).orElseThrow(Exception::new);
-        productSummary.setStock(productSummary.getStock() - stockUpdatedEvent.getNumber());
+    public void on(StockUpdatedEvent event) throws Exception {
+        ProductModel productSummary = productProjectionRepository.findById(event.getProductid()).orElseThrow(Exception::new);
+        productSummary.setStock(productSummary.getStock() - event.getNumber());
         productProjectionRepository.save(productSummary);
     }
 

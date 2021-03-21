@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawMoneyEvent {
-    private String id;
     private String userid;
     private BigDecimal amount;
 }

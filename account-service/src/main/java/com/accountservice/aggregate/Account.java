@@ -12,6 +12,7 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
@@ -35,7 +36,6 @@ public class Account {
     @CommandHandler
     public Account(WithdrawMoneyCommand command) {
         apply(new WithdrawMoneyEvent(
-                command.getId(),
                 command.getUserid(),
                 command.getAmount()
         ));
@@ -64,12 +64,12 @@ public class Account {
         }
         this.id = event.getId();
         this.userid = event.getUserid();
-        this.balance = balance.add(event.getAmount());
+        this.balance = event.getAmount();
     }
 
     @EventSourcingHandler
     protected void withdrawMoney(WithdrawMoneyEvent event) {
-        this.id = event.getId();
+        this.id = UUID.randomUUID().toString();
         this.userid = event.getUserid();
         this.balance = event.getAmount();
     }

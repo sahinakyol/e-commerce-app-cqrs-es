@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StockUpdatedEvent {
-    private String id;
+    private String productid;
     private Integer number;
 }

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import org.axonframework.commandhandling.RoutingKey;
 
 import java.math.BigDecimal;
 
@@ -13,8 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawMoneyCommand {
-    @TargetAggregateIdentifier
-    private String id;
+    @RoutingKey
     private String userid;
     private BigDecimal amount;
 }

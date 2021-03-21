@@ -7,8 +7,6 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 @RequiredArgsConstructor
 public class PaymentCreatedEventHandler {
@@ -19,7 +17,6 @@ public class PaymentCreatedEventHandler {
     public void handle(PaymentCreatedEvent event) {
         commandGateway.send(
                 new WithdrawMoneyCommand(
-                        UUID.randomUUID().toString(),
                         event.getUserid(),
                         event.getTotalAmount()
                 )

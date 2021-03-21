@@ -1,8 +1,6 @@
 package com.orderservice.projection;
 
-
 import com.core.event.OrderCreatedEvent;
-import com.core.event.StockUpdatedEvent;
 import com.orderservice.model.OrderModel;
 import com.orderservice.query.GetOrdersQuery;
 import com.orderservice.repository.OrderProjectionRepository;

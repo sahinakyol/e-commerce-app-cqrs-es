@@ -24,22 +24,31 @@ public class Payment {
 
     private String status;
 
+    private Integer number;
+
+    private String productId;
+
     @CommandHandler
     public Payment(PaymentCreateCommand command) {
         apply(new PaymentCreatedEvent(
                 command.getId(),
                 command.getOrderId(),
                 command.getPrice().multiply(new BigDecimal(command.getNumber())),
-                command.getUserid()
+                command.getUserid(),
+                command.getNumber(),
+                command.getProductId()
         ));
     }
 
+
     @EventSourcingHandler
-    public void on(PaymentCreatedEvent paymentCreatedEvent) {
-        this.id = paymentCreatedEvent.getId();
-        this.orderId = paymentCreatedEvent.getOrderId();
-        this.userid = paymentCreatedEvent.getUserid();
-        this.totalAmount = paymentCreatedEvent.getTotalAmount();
+    public void on(PaymentCreatedEvent event) {
+        this.id = event.getPaymentid();
+        this.orderId = event.getOrderId();
+        this.userid = event.getUserid();
+        this.totalAmount = event.getTotalAmount();
+        this.number = event.getNumber();
+        this.productId = event.getProductId();
         this.status = "PAID";
     }
 

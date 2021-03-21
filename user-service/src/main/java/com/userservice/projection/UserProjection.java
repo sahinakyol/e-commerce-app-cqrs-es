@@ -23,15 +23,10 @@ public class UserProjection {
                 userCreatedEvent.getName()
         );
         userProjectionRepository.save(userModel);
-        sendCreateAccountEvent(userCreatedEvent.getId());
     }
 
     @QueryHandler
     public List<UserModel> handle(GetUsersQuery getUsersQuery) {
         return userProjectionRepository.findAll();
-    }
-
-    private void sendCreateAccountEvent(String id) {
-        /* TODO */
     }
 }

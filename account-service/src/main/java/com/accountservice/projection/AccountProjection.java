@@ -38,7 +38,7 @@ public class AccountProjection {
 
     @EventHandler
     public void handle(DepositMoneyEvent event) throws Exception {
-        AccountModel account = accountProjectionRepository.findByUserid(event.getUserid()).orElseThrow(Exception::new);
+        AccountModel account = accountProjectionRepository.findByUserid(event.getUserid()).orElse(new AccountModel(event.getId(), event.getUserid(), event.getAmount()));
         account.setBalance(account.getBalance().add(event.getAmount()));
         accountProjectionRepository.save(account);
     }

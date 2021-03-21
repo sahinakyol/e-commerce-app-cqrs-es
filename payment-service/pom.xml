@@ -54,7 +54,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>com.core</groupId>
             <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

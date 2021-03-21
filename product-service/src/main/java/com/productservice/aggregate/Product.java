@@ -11,6 +11,7 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
@@ -19,6 +20,7 @@ import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 public class Product {
     @AggregateIdentifier
     private String id;
+    private String productid;
     private BigDecimal price;
     private Integer stock;
     private String name;
@@ -36,25 +38,22 @@ public class Product {
     }
 
     @CommandHandler
-    public void handle(UpdateStockCommand updateStockCommand) {
-        if (this.stock >= updateStockCommand.getNumber()) {
-            apply(new StockUpdatedEvent(
-                    updateStockCommand.getId(),
-                    updateStockCommand.getNumber()
-            ));
-        } else {
-            throw new RuntimeException("Out of Stock!");
-        }
+    public Product(UpdateStockCommand command) {
+        apply(new StockUpdatedEvent(
+                command.getProductid(),
+                command.getNumber()
+        ));
     }
 
     @EventSourcingHandler
-    public void on(StockUpdatedEvent evt){
-        id = evt.getId();
-        stock = stock - evt.getNumber();
+    public void on(StockUpdatedEvent evt) {
+        id = UUID.randomUUID().toString();
+        productid = evt.getProductid();
+        stock = -evt.getNumber();
     }
 
     @EventSourcingHandler
-    public void on(ProductCreatedEvent evt){
+    public void on(ProductCreatedEvent evt) {
         id = evt.getId();
         price = evt.getPrice();
         stock = evt.getStock();
