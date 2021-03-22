@@ -7,6 +7,8 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 @RequiredArgsConstructor
 public class PaymentCreatedEventHandler {
@@ -18,7 +20,8 @@ public class PaymentCreatedEventHandler {
         commandGateway.send(
                 new WithdrawMoneyCommand(
                         event.getUserid(),
-                        event.getTotalAmount()
+                        event.getTotalAmount(),
+                        new Date().toString()
                 )
         );
     }

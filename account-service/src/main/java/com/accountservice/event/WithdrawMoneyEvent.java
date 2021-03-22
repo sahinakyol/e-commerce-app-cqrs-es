@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.axonframework.serialization.Revision;
 
 import java.math.BigDecimal;
 
@@ -11,7 +12,9 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Revision("1")
 public class WithdrawMoneyEvent {
     private String userid;
     private BigDecimal amount;
+    private String timestamp;
 }

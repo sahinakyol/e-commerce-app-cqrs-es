@@ -3,8 +3,11 @@ package com.orderservice.aggregate;
 import com.core.event.OrderCreatedEvent;
 import com.orderservice.command.CreateOrderCommand;
 import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.InterceptorChain;
 import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.modelling.command.CommandHandlerInterceptor;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.math.BigDecimal;
@@ -40,4 +43,13 @@ public class Order {
         productId = orderCreatedEvent.getProductId();
     }
 
+
+    @CommandHandlerInterceptor
+    public void checkUser(CommandMessage<?> command, InterceptorChain chain) throws Exception {
+        if (null != command.getMetaData().get("userid")) {
+            chain.proceed();
+        } else {
+            throw new Exception();
+        }
+    }
 }

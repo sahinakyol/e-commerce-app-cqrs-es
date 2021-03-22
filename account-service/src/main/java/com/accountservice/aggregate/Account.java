@@ -16,13 +16,14 @@ import java.util.UUID;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
-@Aggregate
+@Aggregate(snapshotTriggerDefinition = "accountSnapshotTriggerDefinition")
 public class Account {
 
     @AggregateIdentifier
     private String id;
     private String userid;
     private BigDecimal balance;
+    private String timestamp;
 
     @CommandHandler
     public Account(CreateAccountCommand command) {
@@ -37,7 +38,8 @@ public class Account {
     public Account(WithdrawMoneyCommand command) {
         apply(new WithdrawMoneyEvent(
                 command.getUserid(),
-                command.getAmount()
+                command.getAmount(),
+                command.getTimestamp()
         ));
     }
 
@@ -72,5 +74,6 @@ public class Account {
         this.id = UUID.randomUUID().toString();
         this.userid = event.getUserid();
         this.balance = event.getAmount();
+        this.timestamp = event.getTimestamp();
     }
 }

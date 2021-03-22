@@ -2,6 +2,7 @@ package com.accountservice.controller;
 
 import com.accountservice.model.AccountModel;
 import com.accountservice.query.GetAccountsQuery;
+import com.accountservice.service.ReplayService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -15,9 +16,15 @@ import java.util.concurrent.CompletableFuture;
 @RequiredArgsConstructor
 public class AccountController {
     private final QueryGateway queryGateway;
+    private final ReplayService replayService;
 
     @GetMapping
     public CompletableFuture<List<AccountModel>> getOrders() {
         return queryGateway.query(new GetAccountsQuery(), ResponseTypes.multipleInstancesOf(AccountModel.class));
+    }
+
+    @GetMapping(value = "replay")
+    public void replay() {
+        replayService.replay();
     }
 }

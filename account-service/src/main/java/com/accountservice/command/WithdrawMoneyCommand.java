@@ -16,4 +16,5 @@ public class WithdrawMoneyCommand {
     @RoutingKey
     private String userid;
     private BigDecimal amount;
+    private String timestamp;
 }
