@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class PaymentCreatedEvent {
 
-    private String paymentid;
+    private String paymentId;
     private String orderId;
     private BigDecimal totalAmount;
     private String userid;

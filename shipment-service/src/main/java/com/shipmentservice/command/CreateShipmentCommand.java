@@ -10,6 +10,7 @@ public class CreateShipmentCommand {
 
     @TargetAggregateIdentifier
     private final String id;
+    private final String paymentId;
     private final String productId;
     private final Integer productCount;
     private final String address;

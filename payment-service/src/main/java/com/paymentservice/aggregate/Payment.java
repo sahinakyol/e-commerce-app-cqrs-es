@@ -43,7 +43,7 @@ public class Payment {
 
     @EventSourcingHandler
     public void on(PaymentCreatedEvent event) {
-        this.id = event.getPaymentid();
+        this.id = event.getPaymentId();
         this.orderId = event.getOrderId();
         this.userid = event.getUserid();
         this.totalAmount = event.getTotalAmount();

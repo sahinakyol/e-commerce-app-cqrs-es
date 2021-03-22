@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class CreateShipmentEvent {
-    private final String paymentid;
+    private final String id;
+    private final String paymentId;
     private final String productId;
     private final Integer productCount;
     private final String address;
